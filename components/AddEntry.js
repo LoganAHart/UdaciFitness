@@ -11,6 +11,8 @@ import {
 import UdaciSlider from './UdaciSlider';
 import UdaciSteppers from './UdaciSteppers';
 import DateHeader from './DateHeader';
+import TextButton from './TextButton';
+import { Ionicons } from '@expo/vector-icons';
 
 function SubmitBtn({ onPress }) {
   return (
@@ -57,9 +59,7 @@ export default class AddEntry extends Component {
   submit = () => {
     const key = timeToString();
     const entry = this.state;
-
     // Update Redux
-
     this.setState(() => ({
       run: 0,
       bike: 0,
@@ -67,15 +67,32 @@ export default class AddEntry extends Component {
       sleep: 0,
       eat: 0,
     }))
-
     // Navigate to home
-
     // Save to 'DB'
-
     // Clear local notification
+  }
+  reset = () => {
+    const key = timeToString();
+    // Update Redux
+    // Route to Home
+    // Update 'DB'
   }
   render() {
     const metaInfo = getMetricMetaInfo();
+    if (this.props.alreadyLogged) {
+      return (
+        <View>
+          <Ionicons
+            name='md-happy'
+            size={100}
+          />
+          <Text>You've already logged your information for today</Text>
+          <TextButton onPress={this.reset}>
+            RESET
+          </TextButton>
+        </View>
+      );
+    }
 
     return (
       <View>
