@@ -84,3 +84,15 @@ Used in the course as a pseudo database...
 >On iOS, AsyncStorage is backed by native code that stores small values in a serialized dictionary and larger values in separate files. On Android, AsyncStorage will use either RocksDB or SQLite based on what is available.
 >The AsyncStorage JavaScript code is a simple facade that provides a clear JavaScript API, real Error objects, and simple non-multi functions. Each method in the API returns a Promise object.
 [APIs: AsyncStorage](https://facebook.github.io/react-native/docs/asyncstorage)
+
+## StyleSheet
+
+StyleSheet:
+>A StyleSheet is an abstraction similar to CSS StyleSheets
+>Code quality:
+>By moving styles away from the render function, you're making the code easier to understand.
+>Naming the styles is a good way to add meaning to the low level components in the render function.
+>Performance:
+>Making a stylesheet from a style object makes it possible to refer to it by ID instead of creating a new style object every time.
+>It also allows to send the style only once through the bridge. All subsequent uses are going to refer an id (not implemented yet).
+[APIs: StyleSheet](https://facebook.github.io/react-native/docs/stylesheet)
