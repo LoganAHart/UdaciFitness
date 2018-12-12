@@ -4,15 +4,19 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import {
   getMetricMetaInfo,
   timeToString,
 } from '../utils/helpers';
+import {
+  submitEntry,
+  removeEntry,
+} from '../utils/api';
 import UdaciSlider from './UdaciSlider';
 import UdaciSteppers from './UdaciSteppers';
 import DateHeader from './DateHeader';
 import TextButton from './TextButton';
-import { Ionicons } from '@expo/vector-icons';
 
 function SubmitBtn({ onPress }) {
   return (
@@ -21,7 +25,7 @@ function SubmitBtn({ onPress }) {
     >
       <Text>SUBMIT</Text>
     </TouchableOpacity>
-  )
+  );
 }
 
 export default class AddEntry extends Component {
@@ -68,14 +72,14 @@ export default class AddEntry extends Component {
       eat: 0,
     }))
     // Navigate to home
-    // Save to 'DB'
+    submitEntry({ key, entry });
     // Clear local notification
   }
   reset = () => {
     const key = timeToString();
     // Update Redux
     // Route to Home
-    // Update 'DB'
+    removeEntry(key);
   }
   render() {
     const metaInfo = getMetricMetaInfo();
