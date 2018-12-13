@@ -111,3 +111,10 @@ StyleSheet:
 >Making a stylesheet from a style object makes it possible to refer to it by ID instead of creating a new style object every time.
 >It also allows to send the style only once through the bridge. All subsequent uses are going to refer an id (not implemented yet).
 [APIs: StyleSheet](https://facebook.github.io/react-native/docs/stylesheet)
+
+## Dimensions
+
+Dimensions:
+>React Native also comes with Dimensions, which allows you to select window's width and height in the user's device.
+> Methods: set, get, addEventListener, removeEventListener
+[APIs: Dimensions](https://facebook.github.io/react-native/docs/dimensions)
