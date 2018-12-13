@@ -1,14 +1,20 @@
-import React from 'react';
+import React from 'react'
 import {
   View,
-  StyleSheet,
-} from 'react-native';
+  StyleSheet 
+} from 'react-native'
 import {
   FontAwesome,
   MaterialIcons,
-  MaterialCommunityIcons,
-} from '@expo/vector-icons';
-import { white, red, orange, blue, lightPurp, pink } from './colors'
+  MaterialCommunityIcons
+} from '@expo/vector-icons'
+import { red, orange, blue, lightPurp, pink, white } from './colors'
+
+export function getDailyReminderValue () {
+  return {
+    today: "👋 Don't forget to log your data today!",
+  };
+}
 
 const styles = StyleSheet.create({
   iconContainer: {
@@ -18,7 +24,7 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 20,
+    marginRight: 20
   },
 });
 
@@ -114,20 +120,20 @@ export function getMetricMetaInfo (metric) {
         )
       }
     },
-  };
+  }
   return typeof metric === 'undefined'
     ? info
     : info[metric]
 }
 
-export function isBetween(num, x, y) {
+export function isBetween (num, x, y) {
   if (num >= x && num <= y) {
     return true;
   }
   return false;
 }
 
-export function calculateDirection(heading) {
+export function calculateDirection (heading) {
   let direction = '';
   if (isBetween(heading, 0, 22.5)) {
     direction = 'North';
@@ -153,14 +159,8 @@ export function calculateDirection(heading) {
   return direction;
 }
 
-export function timeToString(time = Date.now()) {
+export function timeToString (time = Date.now()) {
   const date = new Date(time);
   const todayUTC = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
   return todayUTC.toISOString().split('T')[0];
-}
-
-export function getDailyReminderValue() {
-  return {
-    today: `👋 Don't forget to log your data today!`,
-  }
 }

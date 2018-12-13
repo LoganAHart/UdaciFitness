@@ -3,11 +3,11 @@ import { getMetricMetaInfo, timeToString } from './helpers';
 
 export const CALENDAR_STORAGE_KEY = 'UdaciFitness:calendar';
 
-function getRandomNumber(max) {
+function getRandomNumber (max) {
   return Math.floor(Math.random() * max) + 0;
 }
 
-function setDummyData() {
+function setDummyData () {
   const { run, bike, swim, sleep, eat } = getMetricMetaInfo();
   let dummyData = {};
   const timestamp = Date.now();
@@ -22,15 +22,15 @@ function setDummyData() {
           sleep: getRandomNumber(sleep.max),
           eat: getRandomNumber(eat.max),
         }
-      : null;
+      : null
   }
   AsyncStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(dummyData));
   return dummyData;
 }
 
-function setMissingDates(dates) {
-  const length = Object.keys(dates).length;
-  const timestamp = Date.now();
+function setMissingDates (dates) {
+  const length = Object.keys(dates).length
+  const timestamp = Date.now()
   for (let i = -183; i < 0; i++) {
     const time = timestamp + i * 24 * 60 * 60 * 1000;
     const strTime = timeToString(time);
@@ -38,10 +38,10 @@ function setMissingDates(dates) {
       dates[strTime] = null;
     }
   }
-  return dates;
+  return dates
 }
 
-export function formatCalendarResults(results) {
+export function formatCalendarResults (results) {
   return results === null
     ? setDummyData()
     : setMissingDates(JSON.parse(results));
