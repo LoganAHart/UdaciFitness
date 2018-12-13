@@ -7,14 +7,19 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { AppLoading } from 'expo';
 import UdaciFitnessCalendar from 'udacifitness-calendar';
 import { receiveEntries, addEntry } from '../actions';
 import { timeToString, getDailyReminderValue } from '../utils/helpers';
 import { fetchCalendarResults } from '../utils/api';
 import { white } from '../utils/colors';
 import DateHeader from './DateHeader';
+import MetricCard from './MetricCard';
 
 class History extends Component {
+  state = {
+    ready: false,
+  }
   componentDidMount() {
     const { dispatch } = this.props;
     fetchCalendarResults()
@@ -32,15 +37,15 @@ class History extends Component {
     return (
       <View style={styles.item}>
         {today
-          ? <View>
+          ? (<View>
               <DateHeader date={formattedDate} />
               <Text style={styles.noDataText}>
                 {today}
               </Text>
-            </View>
-          : <TouchableOpacity onPress={() => console.log('Pressed!')}>
-              <Text>{JSON.stringify(metrics)}</Text>
-            </TouchableOpacity>
+            </View>)
+          : (<TouchableOpacity onPress={() => console.log('Pressed!')}>
+              <MetricCard metrics={metrics} date={formattedDate} />
+            </TouchableOpacity>)
         }
       </View>
     );
@@ -55,9 +60,14 @@ class History extends Component {
       </View>
     );
   }
-
   render() {
     const { entries } = this.props;
+    const { ready } = this.state;
+
+    if (ready === false) {
+      return <AppLoading />
+    }
+
     return (
       <UdaciFitnessCalendar
         items={entries}
@@ -90,9 +100,9 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 20,
   },
-})
+});
 
-function mapStateToProps (entries) {
+function mapStateToProps(entries) {
   return {
     entries,
   }
