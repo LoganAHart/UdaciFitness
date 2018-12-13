@@ -1,5 +1,20 @@
 # Misc Course Notes
 
+## Modules
+
+### Platform Module
+
+Platform Specific Code:
+>When building a cross-platform app, you'll want to re-use as much code as possible. Scenarios may arise where it makes sense for the code to be different, for example you may want to implement separate visual components for iOS and Android.
+>React Native provides two ways to easily organize your code and separate it by platform:
+>>Using the Platform module.
+>>Using platform-specific file extensions.
+>Certain components may have properties that work on one platform only. All of these props are annotated with @platform and have a small badge next to them on the website.
+
+Platform module:
+>React Native provides a module that detects the platform in which the app is running. You can use the detection logic to implement platform-specific code. Use this option when only small parts of a component are platform-specific.
+[Guides: Platform module](https://facebook.github.io/react-native/docs/platform-specific-code)
+
 ## Components
 
 ### Lists
