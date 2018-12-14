@@ -7,6 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import {
   getMetricMetaInfo,
@@ -79,8 +80,8 @@ class AddEntry extends Component {
       swim: 0,
       sleep: 0,
       eat: 0,
-    }))
-    // Navigate to home
+    }));
+    this.toHome();
     submitEntry({ key, entry });
     // Clear local notification
   }
@@ -88,9 +89,14 @@ class AddEntry extends Component {
     const key = timeToString();
     this.props.dispatch(addEntry({
       [key]: getDailyReminderValue(),
-    }))
-    // Route to Home
+    }));
+    this.toHome();
     removeEntry(key);
+  }
+  toHome = () => {
+    this.props.navigation.dispatch(NavigationActions.back({
+      key: 'AddEntry',
+    }));
   }
   render() {
     const metaInfo = getMetricMetaInfo();
