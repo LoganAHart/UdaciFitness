@@ -7,6 +7,7 @@ import {
 import {
   createAppContainer,
   createBottomTabNavigator,
+  createStackNavigator,
 } from 'react-navigation';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -16,6 +17,10 @@ import reducer from './reducers';
 import AddEntry from './components/AddEntry';
 import History from './components/History';
 import { purple, white } from './utils/colors';
+
+// import StyledComponents from './examples/StyledComponents'
+// import TabNavigation from './examples/TabNavigation';
+// import StackNavigator from './examples/StackNavigator';
 
 function UdaciStatusBar ({ backgroundColor, ...props }) {
   return (
@@ -62,6 +67,7 @@ const TabNavigator = createBottomTabNavigator(
 
 const TabContainer = createAppContainer(TabNavigator);
 
+// export for main app
 export default class App extends React.Component {
   render() {
     return (
@@ -74,3 +80,12 @@ export default class App extends React.Component {
     );
   }
 }
+
+// // export for testing out examples
+// export default class App extends React.Component {
+//   render() {
+//     return (
+//       <StackNavigator />
+//     );
+//   }
+// }
