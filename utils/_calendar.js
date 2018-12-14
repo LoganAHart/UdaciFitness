@@ -12,16 +12,16 @@ function setDummyData () {
   let dummyData = {};
   const timestamp = Date.now();
   for (let i = -183; i < 0; i++) {
-    const time = timestamp + i * 24 * 60 * 60 * 1000;
-    const strTime = timeToString(time);
+    const time = timestamp + i * 24 * 60 * 60 * 1000
+    const strTime = timeToString(time)
     dummyData[strTime] = getRandomNumber(3) % 2 === 0
-      ? {
+      ? ({
           run: getRandomNumber(run.max),
           bike: getRandomNumber(bike.max),
           swim: getRandomNumber(swim.max),
           sleep: getRandomNumber(sleep.max),
           eat: getRandomNumber(eat.max),
-        }
+        })
       : null
   }
   AsyncStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(dummyData));
@@ -38,11 +38,11 @@ function setMissingDates (dates) {
       dates[strTime] = null;
     }
   }
-  return dates
+  return dates;
 }
 
 export function formatCalendarResults (results) {
   return results === null
     ? setDummyData()
-    : setMissingDates(JSON.parse(results));
+    : setMissingDates(JSON.parse(results))
 }
