@@ -24,7 +24,7 @@ import { purple, white } from './utils/colors';
 // import TabNavigation from './examples/TabNavigation';
 // import StackNavigator from './examples/StackNavigator';
 // import DrawerNavigator from './examples/DrawerNavigator';
-import AnimatedExample from './examples/AnimatedExample';
+// import AnimatedExample from './examples/AnimatedExample';
 
 function UdaciStatusBar ({ backgroundColor, ...props }) {
   return (
@@ -91,25 +91,25 @@ const StackNavigator = createStackNavigator({
 
 const MainNavigator = createAppContainer(StackNavigator);
 
-// // export for main app
-// export default class App extends React.Component {
-//   render() {
-//     return (
-//       <Provider store={createStore(reducer)}>
-//         <View style={{flex: 1}}>
-//           <UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
-//           <MainNavigator />
-//         </View>
-//       </Provider>
-//     );
-//   }
-// }
-
-// export for testing out examples
+// export for main app
 export default class App extends React.Component {
   render() {
     return (
-      <AnimatedExample />
+      <Provider store={createStore(reducer)}>
+        <View style={{flex: 1}}>
+          <UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }
+
+// // export for testing out examples
+// export default class App extends React.Component {
+//   render() {
+//     return (
+//       <AnimatedExample />
+//     );
+//   }
+// }
