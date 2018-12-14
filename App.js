@@ -17,6 +17,7 @@ import reducer from './reducers';
 import AddEntry from './components/AddEntry';
 import History from './components/History';
 import EntryDetail from './components/EntryDetail';
+import Live from './components/Live';
 import { purple, white } from './utils/colors';
 
 // import StyledComponents from './examples/StyledComponents'
@@ -36,6 +37,7 @@ const TabNavigator = createBottomTabNavigator(
   {
     History: History,
     AddEntry: AddEntry,
+    Live: Live,
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -43,8 +45,12 @@ const TabNavigator = createBottomTabNavigator(
         const { routeName } = navigation.state;
         if (routeName === 'History') {
           return <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
+        } else if (routeName === 'AddEntry') {
+          return <FontAwesome name='plus-square' size={30} color={tintColor} />
         }
-        return <FontAwesome name='plus-square' size={30} color={tintColor} />
+        return Platform.OS === 'ios'
+          ? <Ionicons name='ios-speedometer' size={30} color={tintColor} />
+          : <Ionicons name='md-speedometer' size={30} color={tintColor} />
       }
     }),
     navigationOptions: {
@@ -84,25 +90,25 @@ const StackNavigator = createStackNavigator({
 
 const MainNavigator = createAppContainer(StackNavigator);
 
-// // export for main app
-// export default class App extends React.Component {
-//   render() {
-//     return (
-//       <Provider store={createStore(reducer)}>
-//         <View style={{flex: 1}}>
-//           <UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
-//           <MainNavigator />
-//         </View>
-//       </Provider>
-//     );
-//   }
-// }
-
-// export for testing out examples
+// export for main app
 export default class App extends React.Component {
   render() {
     return (
-      <DrawerNavigator />
+      <Provider store={createStore(reducer)}>
+        <View style={{flex: 1}}>
+          <UdaciStatusBar backgroundColor={purple} barStyle='light-content' />
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }
+
+// // export for testing out examples
+// export default class App extends React.Component {
+//   render() {
+//     return (
+//       <DrawerNavigator />
+//     );
+//   }
+// }
