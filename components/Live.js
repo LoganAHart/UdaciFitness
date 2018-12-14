@@ -7,17 +7,54 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
+import { Location, Permissions } from 'expo'
 import { Ionicons } from '@expo/vector-icons';
+import { calculateDirection } from '../utils/helpers';
 import { purple, white } from '../utils/colors'; 
 
 export default class Live extends Component {
   state = {
     coords: null,
-    status: 'granted',
+    status: null,
     direction: '',
   }
+  componentDidMount() {
+    Permissions.getAsync(Permissions.LOCATION)
+      .then(({ status }) => {
+        if (status === 'granted') {
+          return this.setLocation()
+        }
+        this.setState(() => ({ status: status}));
+      })
+      .catch((error) => {
+        console.warn('Error getting Location permission: ', error);
+        this.setState(() => ({ status: 'undetermined'}));
+      })
+  }
   askPermission = () => {
-
+    Permissions.askAsync(Permissions.LOCATION)
+      .then(({ status }) => {
+        if (status === 'granted') {
+          return this.setLocation();
+        }
+        this.setState(() => ({ status: status }));
+      })
+      .catch((error) => (console.warn('Error asking Location permission: ', error)))
+  }
+  setLocation = () => {
+    Location.watchPositionAsync({
+      enableHighAccuracy: true,
+      timeInterval: 1,
+      distanceInterval: 1,
+    }, ({ coords }) => {
+      const newDirection = calculateDirection(coords.heading);
+      const { direction } = this.state;
+      this.setState(() => ({
+        coords: coords,
+        status: 'granted',
+        direction: newDirection,
+      }));
+    })
   }
   render() {
     const { status, coords, direction } = this.state;
@@ -57,7 +94,7 @@ export default class Live extends Component {
       <View style={styles.container}>
         <View style={styles.directionContainer}>
           <Text style={styles.header}>You're heading</Text>
-          <Text style={styles.direction}>North</Text>
+          <Text style={styles.direction}>{direction}</Text>
         </View>
         <View style={styles.metricContainer}>
           <View style={styles.metric}>
@@ -65,7 +102,7 @@ export default class Live extends Component {
               Altitude
             </Text>
             <Text style={[styles.subHeader, { color: white }]}>
-              {200} Feet
+              {coords && Math.round(coords.altitude * 3.2808)} Feet
             </Text>
           </View>
           <View style={styles.metric}>
@@ -73,7 +110,7 @@ export default class Live extends Component {
               Speed
             </Text>
             <Text style={[styles.subHeader, { color: white }]}>
-              {8} mph
+              {coords && (coords.speed * 2.2369).toFixed(1)} mph
             </Text>
           </View>
         </View>
