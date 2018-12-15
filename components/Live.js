@@ -60,7 +60,7 @@ export default class Live extends Component {
       }
 
       this.setState(() => ({
-        coords: coords,
+        coords,
         status: 'granted',
         direction: newDirection,
       }));

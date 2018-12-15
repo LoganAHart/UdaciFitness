@@ -18,6 +18,7 @@ import AddEntry from './components/AddEntry';
 import History from './components/History';
 import EntryDetail from './components/EntryDetail';
 import Live from './components/Live';
+import { setLocalNotification } from './utils/helpers';
 import { purple, white } from './utils/colors';
 
 // import StyledComponents from './examples/StyledComponents'
@@ -93,6 +94,9 @@ const MainNavigator = createAppContainer(StackNavigator);
 
 // export for main app
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
   render() {
     return (
       <Provider store={createStore(reducer)}>
